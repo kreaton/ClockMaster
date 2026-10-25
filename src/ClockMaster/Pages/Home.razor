@@ -1,0 +1,213 @@
+@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>ClockMaster</PageTitle>
+
+<main class="clock-page">
+    <header class="title">
+        <h1>ClockMaster</h1>
+        <div class="title-buttons">
+            <button class="sound-btn" @onclick="ToggleSound"
+                    aria-label="@(_soundOn ? "Slå lyden fra" : "Slå lyden til")">
+                @(_soundOn ? "🔊" : "🔇")
+            </button>
+            <div class="stars" aria-label="@_stars stjerner">⭐ @_stars</div>
+        </div>
+    </header>
+
+    <div class="play">
+        @* The face is drawn in a 200 x 200 box centred on 0,0; angles start at 12 o'clock and go clockwise. *@
+        <svg class="clock @(_solved ? "solved" : "")" viewBox="-100 -100 200 200" role="img" aria-label="Urskive">
+            <circle class="face" r="96" />
+
+            @for (var hour = 1; hour <= 12; hour++)
+            {
+                var (x, y) = Point(hour * 30, NumberRadius);
+                @* <text> is a Razor keyword, so the SVG element goes in as raw markup. *@
+                @((MarkupString)$"<text class=\"hour-number\" x=\"{F(x)}\" y=\"{F(y)}\">{hour}</text>")
+            }
+
+            @* Outer ring: one blue dot per five minutes. *@
+            @for (var minute = 0; minute < 60; minute += 5)
+            {
+                var m = minute;
+                var (x, y) = Point(m * 6, MinuteRadius);
+                <g class="dot minute-dot @(m == _minute ? "selected" : "")" @onclick="() => SetMinute(m)">
+                    <circle class="hit" cx="@F(x)" cy="@F(y)" r="6" />
+                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="2.6" />
+                </g>
+            }
+
+            @* Inner ring: one red dot per hour. *@
+            @for (var hour = 1; hour <= 12; hour++)
+            {
+                var h = hour;
+                var (x, y) = Point(h * 30, HourRadius);
+                <g class="dot hour-dot @(h == _hour ? "selected" : "")" @onclick="() => SetHour(h)">
+                    <circle class="hit" cx="@F(x)" cy="@F(y)" r="9" />
+                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="4" />
+                </g>
+            }
+
+            @if (_hour is { } hourValue)
+            {
+                <line class="hand hour-hand" x1="0" y1="0" x2="0" y2="@(-HourHandLength)"
+                      style="transform: rotate(@(hourValue * 30)deg)" />
+            }
+            @if (_minute is { } minuteValue)
+            {
+                <line class="hand minute-hand" x1="0" y1="0" x2="0" y2="@(-MinuteHandLength)"
+                      style="transform: rotate(@(minuteValue * 6)deg)" />
+            }
+
+            <circle class="centre" r="4" />
+        </svg>
+
+        <aside class="panel">
+            <p class="question">Stil uret på</p>
+            <div class="target" @key="_round">@_game.Display</div>
+
+            <div class="readout">
+                <div class="value hour-value">
+                    <span class="label">Time</span>
+                    <span class="number">@(_hour?.ToString() ?? "–")</span>
+                </div>
+                <div class="value minute-value">
+                    <span class="label">Minut</span>
+                    <span class="number">@(_minute?.ToString() ?? "–")</span>
+                </div>
+            </div>
+
+            @if (_solved)
+            {
+                <button class="big-btn next-btn" @onclick="NextRound">Næste ➜</button>
+            }
+            else
+            {
+                <button class="big-btn check-btn" @onclick="Check">Tjek</button>
+                <button class="again-btn" @onclick="NextRound">Igen</button>
+            }
+        </aside>
+    </div>
+
+    <section class="feedback" aria-live="polite">
+        @if (_solved)
+        {
+            <div class="message success">
+                <span class="big-emoji">🎉</span>
+                <span>Ja! Klokken er @_game.Display!</span>
+            </div>
+        }
+        else if (_error is not null)
+        {
+            <div class="message try-again" @key="_errorCount">
+                <span class="big-emoji">🤔</span>
+                <span>@_error</span>
+            </div>
+        }
+    </section>
+
+    <footer class="credits">Lavet med kærlighed 💛 (c) 2026 Per Hejndorf, Kreaton – @BuildInfo.Display</footer>
+</main>
+
+@code {
+    private const double NumberRadius = 82;
+    private const double MinuteRadius = 66;
+    private const double HourRadius = 46;
+    private const double HourHandLength = 38;
+    private const double MinuteHandLength = 60;
+
+    private readonly ClockGame _game = new();
+    private int? _hour;
+    private int? _minute;
+    private bool _solved;
+    private string? _error;
+    private int _errorCount;
+    private int _round;
+    private int _stars;
+    private bool _soundOn = true;
+
+    protected override void OnInitialized() => NextRound();
+
+    private void NextRound()
+    {
+        _game.NewRound();
+        Clear();
+        _solved = false;
+        _round++;
+    }
+
+    private void SetHour(int hour)
+    {
+        if (_solved) return;
+        _hour = hour;
+        _error = null;
+    }
+
+    private void SetMinute(int minute)
+    {
+        if (_solved) return;
+        _minute = minute;
+        _error = null;
+    }
+
+    private void Clear()
+    {
+        _hour = null;
+        _minute = null;
+        _error = null;
+    }
+
+    private async Task Check()
+    {
+        if (_hour is not { } hour || _minute is not { } minute)
+        {
+            ShowError("Sæt både den lille og den store viser!");
+            return;
+        }
+
+        if (_game.IsCorrect(hour, minute))
+        {
+            _solved = true;
+            _error = null;
+            _stars++;
+            await Play("success");
+        }
+        else
+        {
+            ShowError("Ups! Det er ikke rigtigt. Prøv igen!");
+            await Play("tryAgain");
+        }
+    }
+
+    private void ShowError(string message)
+    {
+        _error = message;
+        _errorCount++;
+    }
+
+    private void ToggleSound() => _soundOn = !_soundOn;
+
+    private async Task Play(string sound)
+    {
+        if (!_soundOn) return;
+        try
+        {
+            await JS.InvokeVoidAsync($"gameSounds.{sound}");
+        }
+        catch (JSException)
+        {
+            // No audio support: the game still works without sound.
+        }
+    }
+
+    /// <summary>The point at <paramref name="degrees"/> clockwise from 12 o'clock.</summary>
+    private static (double X, double Y) Point(double degrees, double radius)
+    {
+        var radians = degrees * Math.PI / 180;
+        return (radius * Math.Sin(radians), -radius * Math.Cos(radians));
+    }
+
+    // SVG wants "." decimals whatever the browser's culture is.
+    private static string F(double value) => value.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture);
+}
