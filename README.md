@@ -1,6 +1,6 @@
 # ClockMaster
 
-A clock game for kids learning to read an analogue clock. A time is shown as digits in 24-hour format, for example **15:35**, and the child sets it on the clock face: a red dot on the inner ring places the hour hand, a blue dot on the outer ring places the minute hand. **Tjek** checks the clock. A right answer earns a star and a fanfare; a wrong one gets a friendly "Ups! Det er ikke rigtigt. Prøv igen!" and a sad-trombone sound, and the hands stay so they can be adjusted. **Igen** clears the clock and gives a new time.
+A clock game for kids learning to read an analogue clock. A time is shown as digits in 24-hour format, for example **15:35**, and the child sets it on the clock face: a red dot on the inner ring places the hour hand, a blue dot on the outer ring places the minute hand. **Tjek** checks the clock. A right answer earns a star and a fanfare; a wrong one gets a friendly "Ups! Det er ikke rigtigt. Prøv igen!" and a sad-trombone sound, and the hands stay so they can be adjusted.
 
 It is a Blazor WebAssembly app (.NET 10) that runs entirely in the browser, with no server or backend.
 
@@ -8,6 +8,7 @@ It is a Blazor WebAssembly app (.NET 10) that runs entirely in the browser, with
 
 - The hour is 00 – 23 and the minutes are always a whole five minutes. The same time never comes twice in a row.
 - The clock face only has 12 hours, so 15:35 is set with the hour hand on 3, and the 12 dot means both 00 and 12.
+- Under the digits the time is also written in words, chosen at random each round: the everyday way ("halv fire", "kvart i fire", "10 minutter over tre", "5 minutter i halv fire") or read off a digital clock ("femten tredive"). See [`Game/TimeText.cs`](src/ClockMaster/Game/TimeText.cs).
 - The hour hand points straight at the chosen hour; it does not move along with the minutes.
 
 The rules are in [`Game/ClockGame.cs`](src/ClockMaster/Game/ClockGame.cs).
@@ -18,6 +19,7 @@ The rules are in [`Game/ClockGame.cs`](src/ClockMaster/Game/ClockGame.cs).
 ClockMaster.slnx
 src/ClockMaster/
   Game/ClockGame.cs         Picks the time and checks the clock
+  Game/TimeText.cs          The time in Danish words
   Pages/Home.razor          The clock face and game screen (an SVG drawn in Razor)
   Layout/MainLayout.razor
   wwwroot/

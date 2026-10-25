@@ -65,7 +65,10 @@
 
         <aside class="panel">
             <p class="question">Stil uret på</p>
-            <div class="target" @key="_round">@_game.Display</div>
+            <div class="target" @key="_round">
+                @_game.Display
+                <span class="target-text">@_game.Text</span>
+            </div>
 
             <div class="readout">
                 <div class="value hour-value">
@@ -85,7 +88,6 @@
             else
             {
                 <button class="big-btn check-btn" @onclick="Check">Tjek</button>
-                <button class="again-btn" @onclick="NextRound">Igen</button>
             }
         </aside>
     </div>

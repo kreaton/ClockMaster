@@ -177,6 +177,18 @@ button:disabled { cursor: default; }
     animation: bounce-in .45s ease-out;
 }
 
+/* Room for two lines, so a long text like "5 minutter over halv fire" doesn't move the buttons. */
+.target-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.6rem;
+    margin-top: 0.4rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--ink);
+}
+
 .readout { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
 .value { display: flex; flex-direction: column; }
@@ -197,16 +209,6 @@ button:disabled { cursor: default; }
 .next-btn { background: var(--purple); box-shadow: 0 0.35rem 0 #5f3dc4; animation: wiggle 1.6s ease-in-out infinite; }
 .big-btn:active { transform: translateY(0.25rem); box-shadow: var(--shadow-pressed); }
 
-.again-btn {
-    padding: 0.4rem;
-    border-radius: 999px;
-    background: #e9ecef;
-    font-size: 1.1rem;
-    font-weight: 700;
-    box-shadow: var(--shadow);
-}
-
-.again-btn:active { transform: translateY(0.25rem); box-shadow: var(--shadow-pressed); }
 
 /* ---------- Feedback ---------- */
 
