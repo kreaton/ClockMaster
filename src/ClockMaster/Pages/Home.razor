@@ -33,8 +33,8 @@
                 var m = minute;
                 var (x, y) = Point(m * 6, MinuteRadius);
                 <g class="dot minute-dot @(m == _minute ? "selected" : "")" @onclick="() => SetMinute(m)">
-                    <circle class="hit" cx="@F(x)" cy="@F(y)" r="6" />
-                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="2.6" />
+                    <circle class="hit" cx="@F(x)" cy="@F(y)" r="9" />
+                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="4" />
                 </g>
             }
 
@@ -45,7 +45,7 @@
                 var (x, y) = Point(h * 30, HourRadius);
                 <g class="dot hour-dot @(h == _hour ? "selected" : "")" @onclick="() => SetHour(h)">
                     <circle class="hit" cx="@F(x)" cy="@F(y)" r="9" />
-                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="4" />
+                    <circle class="mark" cx="@F(x)" cy="@F(y)" r="2.6" />
                 </g>
             }
 
@@ -68,17 +68,6 @@
             <div class="target" @key="_round">
                 @_game.Display
                 <span class="target-text">@_game.Text</span>
-            </div>
-
-            <div class="readout">
-                <div class="value hour-value">
-                    <span class="label">Time</span>
-                    <span class="number">@(_hour?.ToString() ?? "–")</span>
-                </div>
-                <div class="value minute-value">
-                    <span class="label">Minut</span>
-                    <span class="number">@(_minute?.ToString() ?? "–")</span>
-                </div>
             </div>
 
             @if (_solved)

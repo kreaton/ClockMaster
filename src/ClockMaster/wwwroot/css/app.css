@@ -124,12 +124,11 @@ button:disabled { cursor: default; }
 .dot .hit { fill: transparent; }
 .dot .mark { transition: r 0.15s, fill 0.15s; }
 
-
 .minute-dot .mark { fill: var(--blue); }
-.minute-dot.selected .mark { fill: #1864ab; r: 3.4px; }
+.minute-dot.selected .mark { fill: #1864ab; r: 5.5px; }
 
 .hour-dot .mark { fill: #ff8787; }
-.hour-dot.selected .mark { fill: #c92a2a; r: 5.5px; }
+.hour-dot.selected .mark { fill: #c92a2a; r: 3.4px; }
 
 @media (hover: hover) {
     .minute-dot:hover .mark { fill: #1864ab; }
@@ -189,14 +188,6 @@ button:disabled { cursor: default; }
     color: var(--ink);
 }
 
-.readout { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-
-.value { display: flex; flex-direction: column; }
-.value .label { font-size: 1rem; opacity: 0.7; }
-.value .number { font-size: 2.2rem; font-weight: 700; line-height: 1.1; }
-.hour-value .number { color: var(--red); }
-.minute-value .number { color: var(--blue); }
-
 .big-btn {
     padding: 0.7rem;
     border-radius: 999px;
@@ -208,7 +199,6 @@ button:disabled { cursor: default; }
 .check-btn { background: var(--green); box-shadow: 0 0.35rem 0 #2b8a3e; }
 .next-btn { background: var(--purple); box-shadow: 0 0.35rem 0 #5f3dc4; animation: wiggle 1.6s ease-in-out infinite; }
 .big-btn:active { transform: translateY(0.25rem); box-shadow: var(--shadow-pressed); }
-
 
 /* ---------- Feedback ---------- */
 

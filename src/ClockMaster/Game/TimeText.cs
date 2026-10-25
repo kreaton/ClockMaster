@@ -17,8 +17,9 @@ public static class TimeText
         [45] = "femogfyrre", [50] = "halvtreds", [55] = "femoghalvtreds",
     };
 
-    /// <summary>Like a digital clock read aloud: 15:30 is "femten tredive".</summary>
-    public static string Digital(int hour, int minute) => $"{Numbers[hour]} {Minutes[minute]}";
+    /// <summary>Like a digital clock read aloud: 15:30 is "femten tredive", 04:40 "nul fire fyrre".</summary>
+    public static string Digital(int hour, int minute) =>
+        $"{(hour < 10 ? "nul " : "")}{Numbers[hour]} {Minutes[minute]}";
 
     /// <summary>
     /// The everyday way, on a 12-hour clock: 15:30 is "halv fire", 15:45 "kvart i fire",
@@ -35,10 +36,10 @@ public static class TimeText
             15 => $"kvart over {now}",
             30 => $"halv {next}",
             45 => $"kvart i {next}",
-            25 => $"5 minutter i halv {next}",
-            35 => $"5 minutter over halv {next}",
-            < 30 => $"{minute} minutter over {now}",
-            _ => $"{60 - minute} minutter i {next}",
+            25 => $"fem minutter i halv {next}",
+            35 => $"fem minutter over halv {next}",
+            < 30 => $"{Numbers[minute]} minutter over {now}",
+            _ => $"{Numbers[60 - minute]} minutter i {next}",
         };
     }
 
