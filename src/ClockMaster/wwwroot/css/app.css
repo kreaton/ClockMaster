@@ -139,15 +139,14 @@ button:disabled { cursor: default; }
 .clock.solved .dot { cursor: default; pointer-events: none; }
 
 .hand {
-    stroke-width: 6;
     stroke-linecap: round;
     pointer-events: none;
     transform-origin: 0 0;
     transition: transform 0.25s ease-out;
 }
 
-.hour-hand { stroke: var(--red); }
-.minute-hand { stroke: var(--blue); }
+.hour-hand { stroke: var(--red); stroke-width: 5; }
+.minute-hand { stroke: var(--blue); stroke-width: 7; }
 
 .centre { fill: var(--ink); pointer-events: none; }
 

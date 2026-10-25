@@ -1,11 +1,11 @@
 @page "/"
 @inject IJSRuntime JS
 
-<PageTitle>ClockMaster</PageTitle>
+<PageTitle>Ur-mester</PageTitle>
 
 <main class="clock-page">
     <header class="title">
-        <h1>ClockMaster</h1>
+        <h1>Ur-mester</h1>
         <div class="title-buttons">
             <button class="sound-btn" @onclick="ToggleSound"
                     aria-label="@(_soundOn ? "Slå lyden fra" : "Slå lyden til")">
@@ -49,15 +49,16 @@
                 </g>
             }
 
-            @if (_hour is { } hourValue)
-            {
-                <line class="hand hour-hand" x1="0" y1="0" x2="0" y2="@(-HourHandLength)"
-                      style="transform: rotate(@(hourValue * 30)deg)" />
-            }
+            @* SVG draws in order, so the hour hand comes last to lie on top of the minute hand. *@
             @if (_minute is { } minuteValue)
             {
                 <line class="hand minute-hand" x1="0" y1="0" x2="0" y2="@(-MinuteHandLength)"
                       style="transform: rotate(@(minuteValue * 6)deg)" />
+            }
+            @if (_hour is { } hourValue)
+            {
+                <line class="hand hour-hand" x1="0" y1="0" x2="0" y2="@(-HourHandLength)"
+                      style="transform: rotate(@(hourValue * 30)deg)" />
             }
 
             <circle class="centre" r="4" />
@@ -106,7 +107,7 @@
     private const double MinuteRadius = 66;
     private const double HourRadius = 46;
     private const double HourHandLength = 38;
-    private const double MinuteHandLength = 60;
+    private const double MinuteHandLength = 55;
 
     private readonly ClockGame _game = new();
     private int? _hour;

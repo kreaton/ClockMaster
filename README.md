@@ -1,4 +1,4 @@
-# ClockMaster
+# Ur-mester (ClockMaster)
 
 A clock game for kids learning to read an analogue clock. A time is shown as digits in 24-hour format, for example **15:35**, and the child sets it on the clock face: a small red dot on the inner ring places the hour hand, a big blue dot on the outer ring places the minute hand. **Tjek** checks the clock. A right answer earns a star and a fanfare; a wrong one gets a friendly "Ups! Det er ikke rigtigt. Prøv igen!" and a sad-trombone sound, and the hands stay so they can be adjusted.
 
@@ -26,6 +26,9 @@ src/ClockMaster/
     index.html              Host page, <base href>
     css/app.css             All styling and animations
     js/sounds.js            Fanfare and try-again sounds (Web Audio API, no audio files)
+    manifest.webmanifest
+    icons/                  App icons and favicon
+tools/make-icons.ps1        Draws the icons (and copies icon-512.png to Forside/billeder/clockmaster.png)
 ```
 
 ## Running locally
