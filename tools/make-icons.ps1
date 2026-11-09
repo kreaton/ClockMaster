@@ -3,8 +3,8 @@
 # Run with Windows PowerShell (System.Drawing):  powershell -File tools\make-icons.ps1
 param(
     [string]$OutDir = (Join-Path $PSScriptRoot "..\src\ClockMaster\wwwroot\icons"),
-    # The front page (Forside) shows each game's 512 px icon; pass its billeder folder to update it too.
-    [string]$ForsideDir = (Join-Path $PSScriptRoot "..\..\Forside\billeder")
+    # The front page (KidsGames) shows each game's 512 px icon; pass its billeder folder to update it too.
+    [string]$FrontPageDir = (Join-Path $PSScriptRoot "..\..\KidsGames\billeder")
 )
 
 Add-Type -AssemblyName System.Drawing
@@ -112,7 +112,7 @@ Draw-Icon 1024 'icon-1024.png'
 Draw-Icon 512  'icon-512-maskable.png' 0.78
 Draw-Icon 32   'favicon-32.png' 1.0 $false
 
-if (Test-Path $ForsideDir) {
-    Copy-Item (Join-Path $OutDir 'icon-512.png') (Join-Path $ForsideDir 'clockmaster.png')
-    Write-Host "Copied icon-512.png to $ForsideDir\clockmaster.png"
+if (Test-Path $FrontPageDir) {
+    Copy-Item (Join-Path $OutDir 'icon-512.png') (Join-Path $FrontPageDir 'clockmaster.png')
+    Write-Host "Copied icon-512.png to $FrontPageDir\clockmaster.png"
 }

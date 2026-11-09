@@ -36,7 +36,7 @@ src/ClockMaster/
     js/sounds.js            Fanfare and try-again sounds (Web Audio API, no audio files)
     manifest.webmanifest
     icons/                  App icons and favicon
-tools/make-icons.ps1        Draws the icons (and copies icon-512.png to Forside/billeder/clockmaster.png)
+tools/make-icons.ps1        Draws the icons (and copies icon-512.png to KidsGames/billeder/clockmaster.png)
 ```
 
 ## Running locally
