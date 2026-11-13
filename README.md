@@ -51,7 +51,7 @@ Then open http://localhost:5318 (or https://localhost:7318 with the `https` laun
 
 ## Publishing
 
-Pushing to `main` builds the app and uploads it by FTP with [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). It needs the repository secrets `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD` and `FTP_FOLDER`.
+Pushing to `main` builds the app and puts it in the `clockmaster/` folder of the KidsGames GitHub Pages site (<https://kreaton.github.io/KidsGames/clockmaster/>) with [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). It needs the repository secret `PAGES_DEPLOY_KEY`.
 
 To publish by hand:
 
