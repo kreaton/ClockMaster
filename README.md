@@ -3,6 +3,7 @@
 ![Blazor WebAssembly](https://img.shields.io/badge/Blazor-WebAssembly-lightgrey)
 ![.NET 10](https://img.shields.io/badge/.NET-10-lightgrey)
 ![Installable web app](https://img.shields.io/badge/PWA-installable-lightgrey)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 ![Ur-mester: learn to read an analogue clock](images/banner.png)
 
@@ -62,3 +63,9 @@ dotnet publish src/ClockMaster -c Release -o src/ClockMaster/bin/Publish
 and copy the contents of `bin/Publish/wwwroot` to any static web host.
 
 The app is set up to be served from a `clockmaster` sub-path: `<base href>` in [`wwwroot/index.html`](src/ClockMaster/wwwroot/index.html) is `clockmaster`. Change it if you host the app somewhere else, for example `/` for the site root.
+
+## License & Authorship
+
+This project is distributed under the terms of the [MIT License](LICENSE).
+
+**AI authorship note:** Most of the source code in this repository was generated with AI coding agents (Claude Code), under my direction and review. Purely AI-generated material may not be eligible for copyright protection in some jurisdictions. To the extent any part of this project is protected by copyright, it is licensed under the MIT License, and the license's warranty and liability disclaimers apply to the project as a whole.
