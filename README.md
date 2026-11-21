@@ -12,6 +12,8 @@
 
 **A clock game for kids learning to read an analogue clock.**
 
+▶️ **Play it:** <https://kreaton.github.io/KidsGames/clockmaster/>
+
 A time is shown as digits in 24-hour format, for example **15:35**, and the child sets it on the clock face: a small red dot on the inner ring places the hour hand, a big blue dot on the outer ring places the minute hand. **Tjek** checks the clock. A right answer earns a star and a fanfare; a wrong one gets a friendly "Ups! Det er ikke rigtigt. Prøv igen!" and a sad-trombone sound, and the hands stay so they can be adjusted.
 
 It is a Blazor WebAssembly app (.NET 10) that runs entirely in the browser, with no server or backend.
